@@ -14,7 +14,7 @@ export default function RootStack() {
 	return (
 		<>
 			<Stack.Navigator
-				initialRouteName='Home'
+				initialRouteName='SelectBrand'
 				screenOptions={{
 					headerShown: false
 				}}>

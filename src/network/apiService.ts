@@ -14,6 +14,8 @@ export const getApiService = (api: string, params?: AxiosRequestConfig<any>) =>
   new Promise((resolve, reject) => {
     APIClient.get(api, params)
       .then((res: any) => {
+        console.log('api call here1', res);
+        
         if (res?.status >= 200 && res?.status <= 204) {
           resolve(res.data);
         } else {
@@ -22,6 +24,7 @@ export const getApiService = (api: string, params?: AxiosRequestConfig<any>) =>
       })
       .catch((err: any) => reject(err))
       .finally(() => {
+        console.log('api call here2');
         resolve([]);
       });
   });

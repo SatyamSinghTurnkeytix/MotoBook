@@ -1,4 +1,4 @@
-import { View, FlatList } from 'react-native'
+import { View, FlatList, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import MainFrame from '@src/common/components/Mainframe'
 import { useNavigation } from '@react-navigation/native'
@@ -10,107 +10,121 @@ import SelectModal from './components/SelectModal'
 import BrandItem from './components/BrandItem'
 import { styles } from './styles'
 import { spacing } from '@src/common/styles/values'
+import { getCompaniesListAPI } from '@src/network/car'
+import { API_RESPONSE } from '@src/common/constants/constants'
 
 export const brandsData = [
 	{
-		id: 1,
-		title: 'AUDI'
+		"_id": "677a840a569a769a13cac4e7",
+		"name": "Aston Martin",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 2,
-		title: 'AUDI 1'
+		"_id": "677a840a569a769a13cac4e8",
+		"name": "Audi",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 3,
-		title: 'AUDI 2'
+		"_id": "677a840a569a769a13cac4e9",
+		"name": "Austin",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 4,
-		title: 'AUDI dsjkf'
+		"_id": "677a840a569a769a13cac4ea",
+		"name": "Bentley",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 5,
-		title: 'AUDI sdg'
+		"_id": "677a840a569a769a13cac4eb",
+		"name": "BMW",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 6,
-		title: 'AUDI fetry'
+		"_id": "677a840a569a769a13cac4ec",
+		"name": "Bugatti",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 7,
-		title: 'AUDI 7'
+		"_id": "677a840a569a769a13cac4ed",
+		"name": "Caterham",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 8,
-		title: 'AUDI 8'
+		"_id": "677a840a569a769a13cac4ee",
+		"name": "Chevrolet",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 9,
-		title: 'AUDI 9'
+		"_id": "677a840a569a769a13cac4ef",
+		"name": "Chrysler",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 10,
-		title: 'AUDI 10'
+		"_id": "677a840a569a769a13cac4f0",
+		"name": "Citroën",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 11,
-		title: 'AUDI 11'
+		"_id": "677a840a569a769a13cac4f1",
+		"name": "Daewoo",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 12,
-		title: 'AUDI 12'
+		"_id": "677a840a569a769a13cac4f2",
+		"name": "Datsun",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 13,
-		title: 'AUDI 13'
+		"_id": "677a840a569a769a13cac4f3",
+		"name": "DC",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 14,
-		title: 'AUDI 14'
+		"_id": "677a840a569a769a13cac4f4",
+		"name": "Fiat",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 16,
-		title: 'AUDI 15'
+		"_id": "677a840a569a769a13cac4f5",
+		"name": "Force Motors",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	},
 	{
-		id: 17,
-		title: 'AUDI 15'
-	},
-	{
-		id: 18,
-		title: 'AUDI 15'
-	},
-	{
-		id: 19,
-		title: 'AUDI 15'
-	},
-	{
-		id: 20,
-		title: 'AUDI 15'
-	},
-	{
-		id: 21,
-		title: 'AUDI 15'
-	},
-	{
-		id: 22,
-		title: 'AUDI 15'
-	},
-	{
-		id: 23,
-		title: 'AUDI 15'
-	},
-	{
-		id: 24,
-		title: 'AUDI 15'
-	},
-	{
-		id: 25,
-		title: 'AUDI 15'
-	},
-	{
-		id: 26,
-		title: 'AUDI 15'
+		"_id": "677a840a569a769a13cac4f6",
+		"name": "Ford",
+		"isDeleted": false,
+		"isSuspended": false,
+		"image": "https://motor-api-pp3m.onrender.com/logo.jpeg"
 	}
 ]
 
@@ -125,8 +139,13 @@ const SelectBrand = () => {
 	const [searchedBrandsData, setSearchedBrandsData] = useState<any[]>(brandsData)
 
 	useEffect(() => {
-		setAllBrandsData(brandsData)
-	})
+		getCompaniesListAPI((res: API_RESPONSE) => {
+			if (res.data) {
+				setAllBrandsData(res.data)
+				setSearchedBrandsData(res.data)
+			}
+		})
+	}, [])
 
 	useEffect(() => {
 		searchItemLocally()
@@ -136,8 +155,8 @@ const SelectBrand = () => {
 		const data =
 			allBrandsData?.length > 0
 				? allBrandsData?.filter((item: any) => {
-						return searchText?.length > 0 ? item?.title?.toLowerCase().includes(searchText?.toLowerCase()) : true
-				  })
+					return searchText?.length > 0 ? item?.name?.toLowerCase().includes(searchText?.toLowerCase()) : true
+				})
 				: allBrandsData
 		setSearchedBrandsData(data)
 	}
@@ -152,7 +171,7 @@ const SelectBrand = () => {
 				<View style={commonMarginStyles.marginVerticalM}>
 					<SearchComponent searchText={searchText} handleSearch={setSearchText} clearSearch={() => setSearchText('')} />
 				</View>
-				<FlatList data={searchedBrandsData} renderItem={RenderBrandItem} keyExtractor={(item: any) => item?.id} numColumns={4} columnWrapperStyle={{ gap: scaleWidthPX(spacing.m) }} contentContainerStyle={searchedBrandsData.length === 0 && styles.center} ListEmptyComponent={NoRecordFound} />
+				<FlatList data={searchedBrandsData} renderItem={RenderBrandItem} keyExtractor={(item: any) => item?._id} numColumns={4} columnWrapperStyle={{ gap: scaleWidthPX(spacing.m || 0) }} contentContainerStyle={searchedBrandsData.length === 0 && styles.center} ListEmptyComponent={NoRecordFound} />
 			</View>
 			{isModalVisible && (
 				<SelectModal
@@ -167,7 +186,7 @@ const SelectBrand = () => {
 						setIsModalVisible(false)
 						navigation.navigate('VehicleForm')
 					}}
-					data={brandsData}
+					data={searchedBrandsData}
 				/>
 			)}
 		</MainFrame>

@@ -1,6 +1,6 @@
-if (__DEV__) {
+// if (__DEV__) {
 	require('./ReactotronConfig')
-}
+// }
 
 import { AppRegistry, Text, TextInput } from 'react-native'
 import { Provider } from 'react-redux'

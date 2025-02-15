@@ -1,4 +1,4 @@
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native'
 import { COLORS } from '@src/common/colors/colors'
 import RootStack from '@src/core/navigation'
 import React from 'react'
